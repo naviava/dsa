@@ -53,6 +53,17 @@ def prime_number(n: int):
   divs = all_divisions(n)
   print(len(divs) <= 2)
 
-
-
-all_divisions(67)
+def find_gcd(a: int, b: int):
+  while a > 0 and b > 0:
+    print(f"({a}, {b})")
+    if a > b:
+      a = a % b
+    else:
+      b = b % a
+    
+  if a == 0:
+    print(b)
+  else:
+    print(a)
+  
+find_gcd(35, 145)
