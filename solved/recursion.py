@@ -1,4 +1,7 @@
 # i = 1 on first pass.
+from typing import List
+
+
 def n_times_asc(i: int, n: int):
   if (i > n): return
   
@@ -55,7 +58,41 @@ def reverse_array_pointer(a: list):
   
   return a
 
-# def rev_array_recursion(a: list):
+# i = 0 on first pass
+def rev_array_recursion(i: int, a: list):
+  n = len(a)
+  if i > n/2: return
+  a[i], a[n-i-1] = a[n-i-1], a[i]
+  rev_array_recursion(i+1, a)
+  return a
   
+# i = 0 on first pass.
+def palindrome(i: int, word: str):
+  n = len(word)
+  
+  if i > n/2:
+    return True
+  if word[i] != word[n-i-1]:
+    return False
+  
+  return palindrome(i+1, word)
 
-print(reverse_array_pointer([1,2,"dsd",3,5,"gha",75,12,55,"sd"]))
+# n is user choice. i = 0, arr = [] on first pass.
+def fibonacci_array(n: int, i: int, arr: List[int]):
+  if i >= n:
+    return arr
+  
+  if i <= 1:
+    arr.append(i)
+  else:
+    arr.append(arr[i-1] + arr[i-2])
+  
+  return fibonacci_array(n, i+1, arr)
+
+def fibo_value(n: int):
+  if n <= 1:
+    return n
+  
+  return fibo_value(n-1) + fibo_value(n-2)
+
+print(fibo_value(0))
