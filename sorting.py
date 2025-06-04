@@ -113,6 +113,7 @@ class Sorting:
     
   """
   merge() accepts two sorted arrays as input.
+  Merges them and returns a sorted array.
   """
   def merge(self, a1: List[int], a2: List[int]):
       left = 0
@@ -143,20 +144,43 @@ class Sorting:
   # Merge sort.
   def merge_sort(self, arr: List[int]):
     print(f"Split -> {arr}")
-    if len(arr) == 1:
-      return arr
     
     mid = int(len(arr) / 2)
     left = self.merge_sort(arr[0:mid])
     right = self.merge_sort(arr[mid:])
     
     return self.merge(left, right)
+  
+  # Pivot function for quick sort.
+  def pivot(self, arr: List[int], start: int, end: int):
+    if start >= end:
+      return start
     
+    print(f"{arr}")
+    shift: int = start
+    
+    for i in range(start + 1, end):
+      if arr[i] < arr[start]:
+        shift += 1
+        arr[i], arr[shift] = arr[shift], arr[i]
+    
+    arr[start], arr[shift] = arr[shift], arr[start]
+    print(f"Pivot = {shift}")
+    return shift
+  
   # Quick sort.
-  def quick_sort(self, arr: List[int]):
-    print(f"Step 0 -> {arr}")
+  def quick_sort(self, arr: List[int], start: int, end: int):
+    if (start >= end - 1):
+      return arr
     
+    pivot_pt = self.pivot(arr, start, end)
+    self.quick_sort(arr, start, pivot_pt)
+    self.quick_sort(arr, pivot_pt + 1, end)
+    
+    return arr
+        
 nums: List[int] = [randint(1, 99) for _ in range(10)]
 
 s = Sorting()
-print(s.merge_sort(nums));
+# print(s.quick_sort(nums));
+print(s.quick_sort(nums, 0, len(nums)));
