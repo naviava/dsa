@@ -27,14 +27,21 @@ class Sorting:
     
   # Bubble sort.
   @staticmethod
-  def bubble_sort(arr: List[int]):
+  def bubble_sort(arr: List[int], start: int, end: int):
     print()
     print("==================================")
     print("BUBBLE SORT ALGORITHM")
     print("==================================")
     print(f"Step 0 -> {arr}")
     
-    
+    while start < end:
+      for i in range(end - 1):
+        if arr[i] > arr[i+1]:
+          arr[i], arr[i+1] = arr[i+1], arr[i]
+        
+      end -= 1
+      print(f"Step {len(arr) - end} -> {arr}")
+        
     print()
   
   # Insertion sort.
@@ -75,4 +82,4 @@ class Sorting:
     
 nums: List[int] = [randint(1, 99) for _ in range(5)]
 
-Sorting.bubble_sort(nums);
+Sorting.bubble_sort(nums, 0, len(nums));
