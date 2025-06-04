@@ -35,14 +35,18 @@ class Sorting:
     print(f"Step 0 -> {arr}")
     
     while start < end:
+      hasSwapped = False
       for i in range(end - 1):
         if arr[i] > arr[i+1]:
           arr[i], arr[i+1] = arr[i+1], arr[i]
+          hasSwapped = True
         
-      end -= 1
-      print(f"Step {len(arr) - end} -> {arr}")
-        
-    print()
+      print(f"Step {len(arr) - end + 1} -> {arr}")
+      
+      if hasSwapped:
+        end -= 1
+      else:
+        end = 0
   
   # Insertion sort.
   @staticmethod
