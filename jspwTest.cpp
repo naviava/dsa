@@ -1,5 +1,5 @@
 from random import randint
-from typing import List, Optional
+from typing import List
 
 class Sorting:
   # Selection sort.
@@ -86,77 +86,42 @@ class Sorting:
     
     return arr
 
-  def insertion_sort_recursive(self, arr: List[int], n: Optional[int] = None):
-    if n is None:
-        n = len(arr)
-        print(f"Step 0 -> {arr}")
+  def insertion_sort_recursive(self, arr: List[int], start: int = 1):
+    print(f"Step 0 -> {arr}")
 
-    # Base case
-    if n <= 1:
-        return arr
-
-    # Sort first n-1 elements
-    self.insertion_sort_recursive(arr, n - 1)
-
-    # Insert last element at its correct position
-    last = arr[n - 1]
-    j = n - 2
-
-    while j >= 0 and arr[j] > last:
-        arr[j + 1] = arr[j]
-        arr[j] = last
-        j -= 1
-
-    print(f"Step {n-1} -> {arr}")
-    return arr
-  
+    for i in range(1, len(arr)):
+      if start <= 0: return arr
+      
+      if arr[start] < arr[start-1]:
+        arr[start], arr[start-1] = arr[start-1], arr[start]
+        self.insertion_sort_recursive(arr, start - 1)
+          
+      print(f"STEP {i} -> {arr}")
     
-  """
-  merge() accepts two sorted arrays as input.
-  """
-  def merge(self, a1: List[int], a2: List[int]):
-      left = 0
-      right = 0
-      result: List[int] = []
-      print(f"Merging {a1}, {a2}")
-      
-      while left < len(a1) and right < len(a2):
-        if a1[left] < a2[right]:
-          result.append(a1[left])
-          left += 1
-        else:
-          result.append(a2[right])
-          right += 1
-      
-      while left < len(a1):
-        result.append(a1[left])
-        left += 1
-      
-      while right < len(a2):
-        result.append(a2[right])
-        right += 1
-      
-      print(result)
-      print()
-      return result
+    print(arr)
+    return arr
   
   # Merge sort.
   def merge_sort(self, arr: List[int]):
-    print(f"Split -> {arr}")
-    if len(arr) == 1:
-      return arr
-    
-    mid = int(len(arr) / 2)
-    left = self.merge_sort(arr[0:mid])
-    right = self.merge_sort(arr[mid:])
-    
-    return self.merge(left, right)
-    
+    print()
+    print("==================================")
+    print("MERGE SORT ALGORITHM")
+    print("==================================")
+    print(f"Step 0 -> {arr}")
+  
   # Quick sort.
-  def quick_sort(self, arr: List[int]):
+  @staticmethod
+  def quick_sort(arr: List[int]):
+    print()
+    print("==================================")
+    print("QUICK SORT ALGORITHM")
+    print("==================================")
     print(f"Step 0 -> {arr}")
     
-nums: List[int] = [randint(1, 99) for _ in range(10)]
+    
+    print()
+    
+nums: List[int] = [randint(1, 99) for _ in range(5)]
 
 s = Sorting()
-print(s.merge_sort(nums));
+s.insertion_sort_recursive(nums);
