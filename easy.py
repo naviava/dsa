@@ -1,5 +1,5 @@
 from random import randint
-from typing import List, Set
+from typing import List
 
 class Problems:
   # Returns the largest element in an array.
