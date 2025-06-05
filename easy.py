@@ -1,5 +1,5 @@
 from random import randint
-from typing import List
+from typing import List, Set
 
 class Problems:
   # Returns the largest element in an array.
@@ -54,36 +54,79 @@ class Problems:
 
   def sorted_rotate(self, arr: List[int]):
     print(f"Original -> {arr}")
-    largest = 0
+    count = 0
+    n = len(arr)
     
-    for i in range(1, len(arr)):
-      if arr[i] > arr[largest]:
-        largest = i
-    
-    if largest == 0:
-      left = []
-      right = arr[1:]
-    elif largest == len(arr) - 1:
-      left = arr[:len(arr) - 1]
-      right = []
-    else:
-      left = arr[0:largest]
-      right = arr[largest + 1:]
-    
-    print(f"Left -> {left}")
-    print(f"Right -> {right}")
-    
-    for i in range(1, len(left)):
-      if left[i] < left[i-1]:
-        return False
-      
-    for i in range(1, len(right)):
-      if right[i] < right[i-1] or (left and right[i] > arr[largest]):
+    for i in range(n):
+      if arr[i] > arr[(i+1) % n]:
+        count += 1
+      if count > 1:
         return False
     
     return True
+      
+  def remove_duplicates(self, arr: List[int]):
+    print(f"Original -> {arr}")
     
+    if not arr:
+      return 0
+    
+    write = 1
+    
+    for read in range(1, len(arr)):
+      if arr[read] != arr[read - 1]:
+        arr[write] = arr[read]
+        write += 1
+    
+    return write
+  
+  def rotate_array_right(self, arr: List[int], k: int):
+    print(f"Original -> {arr}")
+    n = len(arr)
+    k = k % n
+    r = n - k
+
+    temp = arr[0:r]
+    print(f"Temp -> {temp}")
+    
+    arr[0:r] = []
+    arr.extend(temp)
+    
+    print(f"Final -> {arr}")
+
+  def rotate_array_left(self, arr: List[int], k: int):
+    print(f"Original -> {arr}")
+    n = len(arr)
+    k = k % n
+
+    temp = arr[0:k]
+    print(f"Temp -> {temp}")
+    
+    arr[0:k] = []
+    arr.extend(temp)
+    
+    print(f"Final -> {arr}")
+
+  def move_zero_to_end(self, nums: List[int]):
+    print(f"Original -> {nums}")
+    pos = 0
+    
+    for i in range(len(nums)):
+      if nums[i] != 0:
+        nums[i], nums[pos] =  nums[pos], nums[i]
+        pos += 1
+    
+    return nums
+
+  def linear_search(self, nums: List[int], target: int):
+    print(f"Original -> {nums}")
+    
+    for i, num in enumerate(nums):
+      if num == target:
+        return i
+    return -1
+
 p = Problems()
 nums: List[int] = [randint(1,99) for _ in range(5)]
 # p.sorted_rotate(nums)
-print(p.sorted_rotate([6,7,7,5]))
+print(p.linear_search([2, -4, 4, 0, 10], 0))
