@@ -1,6 +1,7 @@
 from datetime import datetime
-from random import randint
-from typing import Dict, List
+import math
+from random import randint, shuffle
+from typing import List
 
 class Problems:
   # Returns the largest element in an array.
@@ -187,17 +188,70 @@ class Problems:
         j += 1
     
     return res
+  
+  def missing_number(self, nums: List[int]):
+    print(f"Original -> {nums}")
+    
+    n = len(nums)
+    sum = int((n*(n+1)) / 2)
+    
+    # OR
+    # sum: int = 0
+    # for i in range(1, n+1):
+    #   sum += i
+    for num in nums:
+      sum -= num
+    
+    return sum
 
+  def max_consecutive_ones(self, nums: List[int]):
+    print(f"Original -> {nums}")
+    max = 0
+    chain = 0
+    
+    if len(nums) == 0:
+      return 0
+    if len(nums) == 1:
+      return nums[0]
+    
+    for num in nums:
+      if num == 1:
+        chain += 1
+        if chain > max:
+          max = chain
+      
+      else:
+        chain = 0
+      
+    return max
+
+  def single_number(self, nums: List[int]):
+    print(f"Original -> {nums}")
+    
+    res = nums[0]
+    if len(nums) == 1:
+      return res
+    for i in range(1, len(nums)):
+      res = res ^ nums[i]
+    
+    return res
 
   # End of class.
 
 # Inputs
 p = Problems()
-nums1: List[int] = sorted([randint(1,10) for _ in range(6)])
+nums1: List[int] = [randint(0,1) for _ in range(1)]
 nums2: List[int] = sorted([randint(1,10) for _ in range(7)])
 
+n = 9
+nums: List[int] = [i for i in range(n+1)]
+nums.pop(randint(0,n))
+shuffle(nums)
+
 start = datetime.now()
-print(p.array_intersection(nums1, nums2))
+print(p.single_number([2,2,1]))
+print(p.single_number([4,1,2,1,2]))
+print(p.single_number([1]))
 end = datetime.now()
 
 diff = (end - start).total_seconds() * 1000 * 1000
