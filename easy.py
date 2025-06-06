@@ -130,16 +130,14 @@ class Problems:
   def array_union(self, a: List[int], b: List[int]):
     print(f"A -> {a}")
     print(f"B -> {b}")
-    
-    inf = float("inf")
-    union: List[int | float] = []
-    
+        
     i = 0
     j = 0
+    union: List[int | float] = []
     
     while i < len(a) and j < len(b):
-      x = a[i] if i < len(a) else inf
-      y = b[j] if j < len(b) else inf
+      x = a[i]
+      y = b[j]
       n = len(union)
       
       if x <= y:
@@ -163,15 +161,43 @@ class Problems:
     
     return union
 
+  def array_intersection(self, a: List[int], b: List[int]):
+    print(f"A -> {a}")
+    print(f"B -> {b}")
+    
+    i = 0
+    j = 0
+    n1 = len(a)
+    n2 = len(b)
+    res: List[int] = []
+    
+    while i < n1 and j < n2:
+      x = a[i]
+      y = b[j]
+      n = len(res)
+      
+      if x < y:
+        i += 1
+      elif y < x:
+        j += 1
+      else:
+        if n == 0 or x != res[-1]:
+          res.append(x)
+        i += 1
+        j += 1
+    
+    return res
+
+
   # End of class.
 
 # Inputs
 p = Problems()
 nums1: List[int] = sorted([randint(1,10) for _ in range(6)])
-nums2: List[int] = sorted([randint(1,10) for _ in range(3)])
+nums2: List[int] = sorted([randint(1,10) for _ in range(7)])
 
 start = datetime.now()
-print(p.array_union(nums1, nums2))
+print(p.array_intersection(nums1, nums2))
 end = datetime.now()
 
 diff = (end - start).total_seconds() * 1000 * 1000
