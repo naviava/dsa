@@ -1,5 +1,6 @@
+from datetime import datetime
 from random import randint
-from typing import List
+from typing import Dict, List
 
 class Problems:
   # Returns the largest element in an array.
@@ -126,7 +127,54 @@ class Problems:
         return i
     return -1
 
+  def array_union(self, a: List[int], b: List[int]):
+    print(f"A -> {a}")
+    print(f"B -> {b}")
+    
+    inf = float("inf")
+    union: List[int | float] = []
+    
+    i = 0
+    j = 0
+    
+    while i < len(a) and j < len(b):
+      x = a[i] if i < len(a) else inf
+      y = b[j] if j < len(b) else inf
+      n = len(union)
+      
+      if x <= y:
+        if n == 0 or x != union[-1]:
+          union.append(x)
+        i += 1
+      else:
+        if n == 0 or y != union[-1]:
+          union.append(y)
+        j += 1
+      
+    while i < len(a):
+      if len(union) == 0 or a[i] != union[-1]:
+          union.append(a[i])
+      i += 1
+    
+    while j < len(b):
+      if len(union) == 0 or b[j] != union[-1]:
+          union.append(b[j])
+      j += 1
+    
+    return union
+
+  # End of class.
+
+# Inputs
 p = Problems()
-nums: List[int] = [randint(1,99) for _ in range(5)]
-# p.sorted_rotate(nums)
-print(p.linear_search([2, -4, 4, 0, 10], 0))
+nums1: List[int] = sorted([randint(1,10) for _ in range(6)])
+nums2: List[int] = sorted([randint(1,10) for _ in range(3)])
+
+start = datetime.now()
+print(p.array_union(nums1, nums2))
+end = datetime.now()
+
+diff = (end - start).total_seconds() * 1000 * 1000
+
+print()
+print(f"Finished in {diff:.0f}ms.")
